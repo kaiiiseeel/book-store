@@ -3,7 +3,7 @@ package mate.academy.bookstore.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.BookDto;
-import mate.academy.bookstore.dto.CreateBookRequestDto;
+import mate.academy.bookstore.dto.BookRequestDto;
 import mate.academy.bookstore.entity.Book;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.BookMapper;
@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto save(CreateBookRequestDto requestDto) {
+    public BookDto save(BookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
@@ -35,5 +35,23 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDto(bookRepository.findById(id)
                 .orElseThrow(
                     () -> new EntityNotFoundException("Can't find book with such id: " + id)));
+    }
+
+    @Override
+    public BookDto update(Long id, BookRequestDto requestDto) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Can't update book with such id: " + id);
+        }
+        Book bookModel = bookMapper.toModel(requestDto);
+        bookModel.setId(id);
+        return bookMapper.toDto(bookRepository.save(bookModel));
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Can't delete book with such id: " + id);
+        }
+        bookRepository.deleteById(id);
     }
 }
