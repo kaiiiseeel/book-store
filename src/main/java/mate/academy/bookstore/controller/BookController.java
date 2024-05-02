@@ -51,7 +51,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a book",
-            description = "Updates a specific book in database, returns the old version of book")
+            description = "Updates a specific book in database by id, returns the old version of book")
     public BookDto updateBookById(@PathVariable Long id,
                                   @RequestBody @Valid BookRequestDto requestDto) {
         return bookService.update(id, requestDto);
@@ -60,7 +60,7 @@ public class BookController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete the book",
-            description = "Deletes the specific book from database")
+            description = "Deletes the specific book by id from database")
     public void deleteBookById(@PathVariable Long id) {
         bookService.delete(id);
     }
