@@ -23,8 +23,8 @@ public class AuthenticationController {
 
     @PostMapping("/registration")
     @Operation(summary = "Register new user",
-            description = "Registering a new user, returns registered user," +
-                    " throws an exception if a user already exists")
+            description = "Registering a new user, returns registered user,"
+                    + " throws an exception if a user already exists")
     public UserResponseDto register(
             @RequestParam @Valid UserRegistrationRequestDto request) throws RegistrationException {
         return userService.register(request);
