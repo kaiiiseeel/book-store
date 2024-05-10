@@ -7,7 +7,7 @@ import lombok.Data;
 import mate.academy.bookstore.validation.FieldMatch;
 
 @Data
-@FieldMatch(firstField = "password", secondField = "repeatedPassword",
+@FieldMatch(firstFieldName = "password", secondFieldName = "repeatedPassword",
         message = "Your passwords must match")
 public class UserRegistrationRequestDto {
     @Email

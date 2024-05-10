@@ -12,8 +12,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = FieldMatchValidator.class)
 public @interface FieldMatch {
     String message() default "Your fields must match";
-    String firstField();
-    String secondField();
+    String firstFieldName();
+    String secondFieldName();
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

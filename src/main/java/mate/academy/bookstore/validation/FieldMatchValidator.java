@@ -3,13 +3,25 @@ package mate.academy.bookstore.validation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.Objects;
-import mate.academy.bookstore.dto.UserRegistrationRequestDto;
+import org.springframework.beans.BeanWrapperImpl;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch,
-        UserRegistrationRequestDto> {
+        Object> {
+    private String firstField;
+    private String secondField;
+
     @Override
-    public boolean isValid(UserRegistrationRequestDto requestDto,
+    public void initialize(FieldMatch constraintAnnotation) {
+        firstField = constraintAnnotation.firstFieldName();
+        secondField = constraintAnnotation.secondFieldName();
+    }
+
+    @Override
+    public boolean isValid(Object value,
                            ConstraintValidatorContext constraintValidatorContext) {
-        return Objects.equals(requestDto.getPassword(), requestDto.getRepeatedPassword());
+        Object firstObject = new BeanWrapperImpl(value).getPropertyValue(firstField);
+        Object secondObject = new BeanWrapperImpl(value).getPropertyValue(secondField);
+
+        return Objects.equals(firstObject, secondObject);
     }
 }
