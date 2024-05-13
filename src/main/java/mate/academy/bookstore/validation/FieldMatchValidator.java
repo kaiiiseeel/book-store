@@ -30,7 +30,8 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch,
     }
 
     private Object getFieldValue(Object value, String fieldName)
-            throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException,
+            IllegalAccessException {
         Class<?> clazz = value.getClass();
         Field field = clazz.getDeclaredField(fieldName);
         field.setAccessible(true);
