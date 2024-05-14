@@ -28,19 +28,22 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpHeaders headers,
             HttpStatusCode status,
             WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
         List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getErrorMessage)
                 .toList();
-        body.put(TIMESTAMP, LocalDateTime.now());
-        body.put(STATUS, HttpStatus.BAD_REQUEST);
-        body.put(ERRORS, errors);
-        return new ResponseEntity<>(body, headers, status);
+        return handleException(HttpStatus.BAD_REQUEST, errors);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    protected ResponseEntity<Object> handleEntityNotFoundException(
+            EntityNotFoundException exception
+    ) {
+        return handleException(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    protected ResponseEntity<Object> handleRegistrationException(RegistrationException exception) {
+        return handleException(HttpStatus.CONFLICT, exception.getMessage());
     }
 
     private String getErrorMessage(ObjectError e) {
@@ -50,5 +53,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return field + " " + message;
         }
         return e.getDefaultMessage();
+    }
+
+    private ResponseEntity<Object> handleException(HttpStatus status, Object errors) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put(TIMESTAMP, LocalDateTime.now());
+        body.put(STATUS, HttpStatus.BAD_REQUEST);
+        body.put(ERRORS, errors);
+        return new ResponseEntity<>(body, status);
     }
 }
