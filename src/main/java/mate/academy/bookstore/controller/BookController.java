@@ -29,7 +29,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Get all books",
             description = "Returns the list of all books, pagination is enabled")
     public List<BookDto> findAll(Pageable pageable) {
@@ -37,7 +37,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Get book by id",
             description = "Returns specific book by its id")
     public BookDto getBookById(@PathVariable Long id) {

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record UserLoginRequestDto (
+public record UserLoginRequestDto(
         @Email
         String email,
         @NotBlank(message = "Your password can't be empty")

@@ -9,6 +9,7 @@ import mate.academy.bookstore.dto.UserLoginResponseDto;
 import mate.academy.bookstore.dto.UserRegistrationRequestDto;
 import mate.academy.bookstore.dto.UserResponseDto;
 import mate.academy.bookstore.exception.RegistrationException;
+import mate.academy.bookstore.security.AuthenticationService;
 import mate.academy.bookstore.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/registration")
     @Operation(summary = "Register new user",
@@ -34,6 +36,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto) {
-        return null;
+        return authenticationService.authenticate(requestDto);
     }
 }
