@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users-to-users-table
+      author: Mykola Skrypalov
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'john.doe@example.com'
+              - column:
+                  name: password
+                  value: '$2a$10$dljG3K970xFtwNrQKbI5jeePDCjVaTpTjjwsxcblZhe3krkxluAga'
+              - column:
+                  name: first_name
+                  value: 'John'
+              - column:
+                  name: last_name
+                  value: 'Doe'
+              - column:
+                  name: shipping_address
+                  value: '123 Main St'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'jane.smith@example.com'
+              - column:
+                  name: password
+                  value: '$2a$10$AE1oCIsCRST0fSLJztn5q..opebKFQIXVox/wDkGOs0WT25bxXTWq'
+              - column:
+                  name: first_name
+                  value: 'Jane'
+              - column:
+                  name: last_name
+                  value: 'Smith'
+              - column:
+                  name: shipping_address
+                  value: '456 Elm St'
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'bob.jackson@example.com'
+              - column:
+                  name: password
+                  value: '$2a$10$su2EKXcxBLEYd4kHVM7J7eBoZytgas9LlpEMHtrLjygH/eemLnHye'
+              - column:
+                  name: first_name
+                  value: 'Bob'
+              - column:
+                  name: last_name
+                  value: 'Jackson'
+              - column:
+                  name: shipping_address
+                  value: '789 Oak St'

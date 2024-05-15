@@ -10,6 +10,7 @@ import mate.academy.bookstore.dto.BookRequestDto;
 import mate.academy.bookstore.service.BookService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get all books",
             description = "Returns the list of all books, pagination is enabled")
     public List<BookDto> findAll(Pageable pageable) {
@@ -35,6 +37,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get book by id",
             description = "Returns specific book by its id")
     public BookDto getBookById(@PathVariable Long id) {
@@ -43,6 +46,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create new book",
             description = "Saves new book to the database, returns saved book")
     public BookDto createBook(@RequestBody @Valid BookRequestDto requestDto) {
@@ -50,6 +54,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update a book",
             description = "Updates a specific book in database by id,"
                     + " returns the old version of book")
@@ -60,6 +65,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete the book",
             description = "Deletes the specific book by id from database")
     public void deleteBookById(@PathVariable Long id) {
