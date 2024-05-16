@@ -2,8 +2,8 @@ package mate.academy.bookstore.service.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.BookDto;
 import mate.academy.bookstore.dto.BookRequestDto;
+import mate.academy.bookstore.dto.BookResponseDto;
 import mate.academy.bookstore.entity.Book;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.BookMapper;
@@ -19,27 +19,27 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto save(BookRequestDto requestDto) {
+    public BookResponseDto save(BookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
+    public List<BookResponseDto> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
 
     @Override
-    public BookDto getById(Long id) {
+    public BookResponseDto getById(Long id) {
         return bookMapper.toDto(bookRepository.findById(id)
                 .orElseThrow(
                     () -> new EntityNotFoundException("Can't find book with such id: " + id)));
     }
 
     @Override
-    public BookDto update(Long id, BookRequestDto requestDto) {
+    public BookResponseDto update(Long id, BookRequestDto requestDto) {
         if (!bookRepository.existsById(id)) {
             throw new EntityNotFoundException("Can't update book with such id: " + id);
         }

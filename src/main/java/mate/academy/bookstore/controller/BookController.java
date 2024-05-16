@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookstore.dto.BookDto;
 import mate.academy.bookstore.dto.BookRequestDto;
+import mate.academy.bookstore.dto.BookResponseDto;
 import mate.academy.bookstore.service.BookService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class BookController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Get all books",
             description = "Returns the list of all books, pagination is enabled")
-    public List<BookDto> findAll(Pageable pageable) {
+    public List<BookResponseDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
@@ -40,7 +40,7 @@ public class BookController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Get book by id",
             description = "Returns specific book by its id")
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookResponseDto getBookById(@PathVariable Long id) {
         return bookService.getById(id);
     }
 
@@ -49,7 +49,7 @@ public class BookController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create new book",
             description = "Saves new book to the database, returns saved book")
-    public BookDto createBook(@RequestBody @Valid BookRequestDto requestDto) {
+    public BookResponseDto createBook(@RequestBody @Valid BookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
@@ -58,8 +58,8 @@ public class BookController {
     @Operation(summary = "Update a book",
             description = "Updates a specific book in database by id,"
                     + " returns the old version of book")
-    public BookDto updateBookById(@PathVariable Long id,
-                                  @RequestBody @Valid BookRequestDto requestDto) {
+    public BookResponseDto updateBookById(@PathVariable Long id,
+                                          @RequestBody @Valid BookRequestDto requestDto) {
         return bookService.update(id, requestDto);
     }
 
