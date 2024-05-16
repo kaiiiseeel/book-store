@@ -2,6 +2,7 @@ package mate.academy.bookstore.service.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import mate.academy.bookstore.dto.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.dto.BookRequestDto;
 import mate.academy.bookstore.dto.BookResponseDto;
 import mate.academy.bookstore.entity.Book;
@@ -54,5 +55,12 @@ public class BookServiceImpl implements BookService {
             throw new EntityNotFoundException("Can't delete book with such id: " + id);
         }
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId, Pageable pageable) {
+        return bookRepository.findAllByCategoryId(categoryId, pageable).stream()
+                .map(bookMapper::toDtoWithoutCategoryIds)
+                .toList();
     }
 }
