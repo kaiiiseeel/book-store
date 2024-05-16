@@ -1,5 +1,6 @@
 package mate.academy.bookstore.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.CategoryRequestDto;
 import mate.academy.bookstore.dto.CategoryResponseDto;
@@ -10,14 +11,12 @@ import mate.academy.bookstore.repository.CategoryRepository;
 import mate.academy.bookstore.service.CategoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-
 
     @Override
     public List<CategoryResponseDto> findAll(Pageable pageable) {
