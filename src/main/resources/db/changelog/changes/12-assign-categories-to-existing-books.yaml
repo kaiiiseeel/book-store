@@ -8,147 +8,147 @@ databaseChangeLog:
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'To Kill a Mockingbird')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'To Kill a Mockingbird')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Classic Literature')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Classic Literature')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = '1984')
+                  valueComputed: "(SELECT id FROM books WHERE title = '1984')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Dystopian Fiction')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Dystopian Fiction')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Great Gatsby')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Great Gatsby')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Classic Literature')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Classic Literature')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Pride and Prejudice')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Pride and Prejudice')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Romance')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Romance')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Catcher in the Rye')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Catcher in the Rye')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Classic Literature')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Classic Literature')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Animal Farm')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Animal Farm')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Satire')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Satire')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Lord of the Flies')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Lord of the Flies')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Classic Literature')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Classic Literature')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Hobbit')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Hobbit')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Fantasy')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Fantasy')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = "Harry Potter and the Philosopher's Stone")
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Harry Potter and the Philosopher''s Stone')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Fantasy')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Fantasy')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Moby-Dick')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Moby-Dick')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Adventure')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Adventure')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Lord of the Rings')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Lord of the Rings')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Fantasy')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Fantasy')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Brave New World')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Brave New World')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Dystopian Fiction')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Dystopian Fiction')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Odyssey')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Odyssey')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Epic Poetry')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Epic Poetry')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'Frankenstein')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'Frankenstein')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Gothic Fiction')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Gothic Fiction')"
 
         - insert:
             tableName: books_categories
             columns:
               - column:
                   name: book_id
-                  valueComputed: (SELECT id FROM books WHERE title = 'The Picture of Dorian Gray')
+                  valueComputed: "(SELECT id FROM books WHERE title = 'The Picture of Dorian Gray')"
               - column:
                   name: category_id
-                  valueComputed: (SELECT id FROM categories WHERE name = 'Philosophical Fiction')
+                  valueComputed: "(SELECT id FROM categories WHERE name = 'Philosophical Fiction')"
