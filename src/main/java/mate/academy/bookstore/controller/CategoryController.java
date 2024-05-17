@@ -1,6 +1,9 @@
 package mate.academy.bookstore.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.dto.CategoryRequestDto;
@@ -16,8 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
+@Tag(name = "Book's categories", description = "Endpoints for managing categories")
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
@@ -26,33 +29,50 @@ public class CategoryController {
     private final BookService bookService;
 
     @GetMapping
+    @Operation(summary = "Get all categories",
+            description = "Returns the list of all categories with pagination")
     public List<CategoryResponseDto> getAllCategories(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get category by id",
+            description = "Returns a specific category by its id")
     public CategoryResponseDto getCategory(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
     @GetMapping("/{id}/books")
-    public List<BookDtoWithoutCategoryIds> getBooksByCategory(@PathVariable Long id, Pageable pageable) {
+    @Operation(summary = "Get books of a specific category",
+            description = "Returns a list of books of a specific category by category id")
+    public List<BookDtoWithoutCategoryIds> getBooksByCategory(
+            @PathVariable Long id, Pageable pageable
+    ) {
         return bookService.findAllByCategoryId(id, pageable);
     }
 
     @PostMapping
-    public CategoryResponseDto createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
-        return categoryService.save(categoryRequestDto);
-    }
-
-    @PutMapping("/{id}")
-    public CategoryResponseDto updateCategory(
-            @PathVariable Long id, @RequestBody @Valid CategoryRequestDto categoryRequestDto
+    @Operation(summary = "Create new category",
+            description = "Saves new category to the database, returns saved category")
+    public CategoryResponseDto createCategory(
+            @RequestBody @Valid CategoryRequestDto categoryRequestDto
     ) {
         return categoryService.save(categoryRequestDto);
     }
 
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a category",
+            description = "Updates a specific category by its id,"
+                    + " returns the old version of category")
+    public CategoryResponseDto updateCategory(
+            @PathVariable Long id, @RequestBody @Valid CategoryRequestDto categoryRequestDto
+    ) {
+        return categoryService.update(id, categoryRequestDto);
+    }
+
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete category",
+            description = "Delete specific category by its id")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.delete(id);
     }
