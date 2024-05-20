@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryResponseDto update(Long id, CategoryRequestDto categoryRequestDto) {
-        if (!categoryRepository.existsById(id)) {
+        if (!isCategoryExists(id)) {
             throw new EntityNotFoundException("Can't update category with id: " + id);
         }
         Category category = categoryMapper.toModel(categoryRequestDto);
@@ -51,11 +51,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        if (!categoryRepository.existsById(id)) {
+        if (!isCategoryExists(id)) {
             throw new EntityNotFoundException("Can't delete category with id: " + id);
         }
         categoryRepository.deleteById(id);
 
+    }
+
+    private boolean isCategoryExists(Long id) {
+        return categoryRepository.existsById(id);
     }
 }
 

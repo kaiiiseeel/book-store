@@ -44,11 +44,13 @@ public class Book {
     private String coverImage;
     @Column(nullable = false)
     private boolean isDeleted = false;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Category> categories = new HashSet<>();
 }

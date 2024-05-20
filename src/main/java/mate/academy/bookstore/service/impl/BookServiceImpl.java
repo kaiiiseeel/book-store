@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookResponseDto update(Long id, BookRequestDto requestDto) {
-        if (!bookRepository.existsById(id)) {
+        if (!isBookExists(id)) {
             throw new EntityNotFoundException("Can't update book with such id: " + id);
         }
         Book bookModel = bookMapper.toModel(requestDto);
@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Long id) {
-        if (!bookRepository.existsById(id)) {
+        if (!isBookExists(id)) {
             throw new EntityNotFoundException("Can't delete book with such id: " + id);
         }
         bookRepository.deleteById(id);
@@ -62,5 +62,9 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAllByCategoryId(categoryId, pageable).stream()
                 .map(bookMapper::toDtoWithoutCategoryIds)
                 .toList();
+    }
+
+    private boolean isBookExists(Long id) {
+        return bookRepository.existsById(id);
     }
 }
