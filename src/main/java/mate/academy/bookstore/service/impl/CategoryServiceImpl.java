@@ -62,5 +62,3 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.existsById(id);
     }
 }
-
-

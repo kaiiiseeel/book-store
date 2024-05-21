@@ -1,14 +1,19 @@
 package mate.academy.bookstore.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.dto.BookRequestDto;
 import mate.academy.bookstore.dto.BookResponseDto;
 import mate.academy.bookstore.entity.Book;
+import mate.academy.bookstore.entity.Category;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.BookMapper;
 import mate.academy.bookstore.repository.BookRepository;
+import mate.academy.bookstore.repository.CategoryRepository;
 import mate.academy.bookstore.service.BookService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,10 +23,22 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookResponseDto save(BookRequestDto requestDto) {
+        Set<Long> categoryIds = requestDto.getCategoryIds();
+        List<Category> categories = categoryRepository.findAllById(categoryIds);
+
+        if (categoryIds.size() != categories.size()) {
+            Set<Long> availableCategories = categories.stream()
+                    .map(Category::getId)
+                    .collect(Collectors.toSet());
+            categoryIds.removeAll(availableCategories);
+            throw new EntityNotFoundException("Category id not found: " + categoryIds);
+        }
         Book book = bookMapper.toModel(requestDto);
+        book.setCategories(new HashSet<>(categories));
         return bookMapper.toDto(bookRepository.save(book));
     }
 
