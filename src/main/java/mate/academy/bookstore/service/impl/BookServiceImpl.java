@@ -28,15 +28,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponseDto save(BookRequestDto requestDto) {
         Set<Long> categoryIds = requestDto.getCategoryIds();
-        List<Category> categories = categoryRepository.findAllById(categoryIds);
-
-        if (categoryIds.size() != categories.size()) {
-            Set<Long> availableCategories = categories.stream()
-                    .map(Category::getId)
-                    .collect(Collectors.toSet());
-            categoryIds.removeAll(availableCategories);
-            throw new EntityNotFoundException("Category id not found: " + categoryIds);
-        }
+        List<Category> categories = validateCategories(categoryIds);
         Book book = bookMapper.toModel(requestDto);
         book.setCategories(new HashSet<>(categories));
         return bookMapper.toDto(bookRepository.save(book));
@@ -83,5 +75,18 @@ public class BookServiceImpl implements BookService {
 
     private boolean isBookExists(Long id) {
         return bookRepository.existsById(id);
+    }
+
+    private List<Category> validateCategories(Set<Long> categoryIds) {
+        List<Category> categories = categoryRepository.findAllById(categoryIds);
+
+        if (categoryIds.size() != categories.size()) {
+            Set<Long> availableCategories = categories.stream()
+                    .map(Category::getId)
+                    .collect(Collectors.toSet());
+            categoryIds.removeAll(availableCategories);
+            throw new EntityNotFoundException("Category id not found: " + categoryIds);
+        }
+        return categories;
     }
 }
