@@ -1,0 +1,114 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-categories-to-categories-table
+      author: Mykola Skrypalov
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Classic Literature"
+              - column:
+                  name: description
+                  value: "Books that have stood the test of time and are recognized for their artistic merit and cultural significance."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Dystopian Fiction"
+              - column:
+                  name: description
+                  value: "Books set in a speculative future characterized by oppressive societal control and the illusion of a perfect society."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Fantasy"
+              - column:
+                  name: description
+                  value: "Books that contain magical or supernatural elements that do not exist in the real world."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Historical Fiction"
+              - column:
+                  name: description
+                  value: "Books set in the past, often during a significant historical event or time period, with attention to historical detail."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Science Fiction"
+              - column:
+                  name: description
+                  value: "Books that explore futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Romance"
+              - column:
+                  name: description
+                  value: "Books that primarily focus on the relationship and romantic love between two people."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Adventure"
+              - column:
+                  name: description
+                  value: "Books that involve exciting journeys, exploration, and often, a quest or mission."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Philosophical Fiction"
+              - column:
+                  name: description
+                  value: "Books that explore deep questions about life, existence, and the human condition through storytelling."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Satire"
+              - column:
+                  name: description
+                  value: "Books that use humor, irony, and exaggeration to criticize or mock societal norms, politics, and other issues."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Epic Poetry"
+              - column:
+                  name: description
+                  value: "Long narrative poems that often detail heroic deeds and events significant to a culture or nation."
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Gothic Fiction"
+              - column:
+                  name: description
+                  value: "Books that combine fiction, horror, death, and at times, romance, often set in a gloomy, decayed setting."
