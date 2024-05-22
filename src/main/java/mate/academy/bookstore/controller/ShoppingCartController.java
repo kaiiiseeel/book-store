@@ -64,7 +64,6 @@ public class ShoppingCartController {
         return shoppingCartService.updateItem(user.getId(), cartItemId, requestDto);
     }
 
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/cart-items/{cartItemId}")
     @PreAuthorize("hasRole('USER')")
