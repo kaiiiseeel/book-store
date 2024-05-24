@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.request.order.CreateOrderRequestDto;
+import mate.academy.bookstore.dto.request.order.UpdateOrderRequestDto;
 import mate.academy.bookstore.dto.response.order.OrderItemResponseDto;
 import mate.academy.bookstore.dto.response.order.OrderResponseDto;
 import mate.academy.bookstore.entity.Order;
@@ -22,6 +23,7 @@ import mate.academy.bookstore.repository.OrderRepository;
 import mate.academy.bookstore.repository.ShoppingCartRepository;
 import mate.academy.bookstore.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderResponseDto placeOrder(CreateOrderRequestDto requestDto, User user) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(
                 user.getId()).orElseThrow(
@@ -68,11 +71,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderItemResponseDto getOrderItem(Long orderId, Long itemId) {
-        OrderItem orderItem = orderItemRepository.findById(itemId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Can't find order item with id: " + itemId)
+        Order order = orderRepository.findById(orderId).orElseThrow(
+                () -> new EntityNotFoundException("Can't find order with id: " + orderId)
+        );
+
+        OrderItem orderItem = order.getOrderItems().stream()
+                .filter(item -> item.getId().equals(itemId))
+                .findFirst()
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Can't find order item with id: " + itemId
+                                + " in order: " + orderId)
                 );
         return orderItemMapper.toDto(orderItem);
+    }
+
+    @Override
+    public OrderResponseDto updateOrderStatus(Long orderId, UpdateOrderRequestDto requestDto) {
+        Order order = orderRepository.findById(orderId).orElseThrow(
+                () -> new EntityNotFoundException("Can't find order with id: " + orderId)
+        );
+        order.setStatus(requestDto.getStatus());
+        return orderMapper.toDto(orderRepository.save(order));
     }
 
     private Set<OrderItem> getOrderItemsFromShoppingCart(ShoppingCart shoppingCart, Order order) {
