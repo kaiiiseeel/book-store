@@ -22,6 +22,7 @@ import mate.academy.bookstore.repository.OrderItemRepository;
 import mate.academy.bookstore.repository.OrderRepository;
 import mate.academy.bookstore.repository.ShoppingCartRepository;
 import mate.academy.bookstore.service.OrderService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +37,8 @@ public class OrderServiceImpl implements OrderService {
     private final CartItemRepository cartItemRepository;
 
     @Override
-    public List<OrderResponseDto> getAllOrders(Long userId) {
-        return orderRepository.findByUserId(userId).stream()
+    public List<OrderResponseDto> getAllOrders(Long userId, Pageable pageable) {
+        return orderRepository.findByUserId(userId, pageable).stream()
                 .map(orderMapper::toDto)
                 .toList();
     }
@@ -63,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderItemResponseDto> getOrderItems(Long orderId) {
-        return orderItemRepository.findByOrderId(orderId).stream()
+    public List<OrderItemResponseDto> getOrderItems(Long orderId, Pageable pageable) {
+        return orderItemRepository.findByOrderId(orderId, pageable).stream()
                 .map(orderItemMapper::toDto)
                 .toList();
     }

@@ -11,6 +11,7 @@ import mate.academy.bookstore.dto.response.order.OrderItemResponseDto;
 import mate.academy.bookstore.dto.response.order.OrderResponseDto;
 import mate.academy.bookstore.entity.User;
 import mate.academy.bookstore.service.OrderService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,17 +33,17 @@ public class OrderController {
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get orders",
             description = "Get a list of all user orders")
-    public List<OrderResponseDto> getOrders(Authentication auth) {
+    public List<OrderResponseDto> getOrders(Authentication auth, Pageable pageable) {
         User user = (User) auth.getPrincipal();
-        return orderService.getAllOrders(user.getId());
+        return orderService.getAllOrders(user.getId(), pageable);
     }
 
     @GetMapping("/{orderId}/items")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get order items",
             description = "Get all items of a specific order by its id")
-    public List<OrderItemResponseDto> getOrderItems(@PathVariable Long orderId) {
-        return orderService.getOrderItems(orderId);
+    public List<OrderItemResponseDto> getOrderItems(@PathVariable Long orderId, Pageable pageable) {
+        return orderService.getOrderItems(orderId, pageable);
     }
 
     @GetMapping("/{orderId}/items/{id}")
