@@ -53,8 +53,6 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderItems(orderItems);
         order.setTotal(calculateTotal(orderItems));
-        orderRepository.save(order);
-
         cartItemRepository.deleteAll(shoppingCart.getCartItems());
 
         return orderMapper.toDto(orderRepository.save(order));
