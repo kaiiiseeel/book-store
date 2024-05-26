@@ -16,6 +16,7 @@ databaseChangeLog:
                   name: shopping_cart_id
                   type: bigint
                   constraints:
+                    unique: true
                     nullable: false
                     foreignKeyName: fk_cart_items_shopping_cart_id
                     references: shopping_carts(id)
@@ -23,6 +24,7 @@ databaseChangeLog:
                   name: book_id
                   type: bigint
                   constraints:
+                    unique: true
                     nullable: false
                     foreignKeyName: fk_cart_items_book_id
                     references: books(id)
