@@ -1,5 +1,6 @@
 package mate.academy.bookstore.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.request.cartitem.CartItemRequestDto;
 import mate.academy.bookstore.dto.request.cartitem.UpdateCartItemRequestDto;
@@ -44,6 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public ShoppingCartResponseDto addItem(Long id, CartItemRequestDto requestDto) {
         ShoppingCart shoppingCart = shoppingCartRepository.findById(id)
                 .orElseThrow(
@@ -65,6 +67,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public ShoppingCartResponseDto updateItem(
             Long cartId,
             Long itemId,
