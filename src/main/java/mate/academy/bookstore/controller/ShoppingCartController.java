@@ -35,7 +35,7 @@ public class ShoppingCartController {
             description = "Returns shopping cart of authenticated user with all items in it")
     public ShoppingCartResponseDto findShoppingCart(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return shoppingCartService.getShoppingCart(user.getId());
+        return shoppingCartService.getShoppingCartDto(user.getId());
     }
 
     @ResponseStatus(HttpStatus.CREATED)

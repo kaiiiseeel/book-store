@@ -42,19 +42,26 @@ public class OrderController {
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get order items",
             description = "Get all items of a specific order by its id")
-    public List<OrderItemResponseDto> getOrderItems(@PathVariable Long orderId, Pageable pageable) {
-        return orderService.getOrderItems(orderId, pageable);
+    public List<OrderItemResponseDto> getOrderItems(
+            @PathVariable Long orderId,
+            Pageable pageable,
+            Authentication auth
+    ) {
+        User user = (User) auth.getPrincipal();
+        return orderService.getOrderItems(user.getId(), orderId, pageable);
     }
 
-    @GetMapping("/{orderId}/items/{id}")
+    @GetMapping("/{orderId}/items/{orderItemId}")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get order item",
             description = "Get a specific order item from order by order and item id")
     public OrderItemResponseDto getOrderItemFromOrder(
             @PathVariable Long orderId,
-            @PathVariable Long id
+            @PathVariable Long orderItemId,
+            Authentication auth
     ) {
-        return orderService.getOrderItem(orderId, id);
+        User user = (User) auth.getPrincipal();
+        return orderService.getOrderItem(user.getId(), orderId, orderItemId);
     }
 
     @PostMapping
@@ -69,15 +76,15 @@ public class OrderController {
         return orderService.placeOrder(requestDto, user);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{orderId}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update order status",
             description = "Updates status of an order")
     public OrderResponseDto updateOrderStatus(
-            @PathVariable Long id,
+            @PathVariable Long orderId,
             @RequestBody @Valid UpdateOrderRequestDto requestDto
     ) {
-        return orderService.updateOrderStatus(id, requestDto);
+        return orderService.updateOrderStatus(orderId, requestDto);
     }
 
 }
