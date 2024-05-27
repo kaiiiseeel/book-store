@@ -100,11 +100,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void isOrderExists(Long userId, Long orderId) {
-        Order order = getOrder(userId, orderId);
-        if (order.getUser().getId().equals(userId)) {
-            throw new EntityNotFoundException(
-                    "Can't find order with id: " + orderId + " for user: " + userId);
-        }
+        getOrder(userId, orderId);
     }
 
     private Set<OrderItem> getOrderItemsFromShoppingCart(ShoppingCart shoppingCart, Order order) {
