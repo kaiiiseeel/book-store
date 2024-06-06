@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/cart")
+@RequestMapping()
 @RequiredArgsConstructor
 @Tag(name = "Shopping cart management", description = "Endpoints to manage user's shopping cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
-    @GetMapping
+    @GetMapping("/cart")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get shopping cart with items",
             description = "Returns shopping cart of authenticated user with all items in it")
@@ -39,7 +39,7 @@ public class ShoppingCartController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/cart")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Add book to shopping cart",
             description = "Add book to shopping cart")
