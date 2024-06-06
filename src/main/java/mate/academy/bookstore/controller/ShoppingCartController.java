@@ -69,7 +69,8 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Delete item from shopping cart",
             description = "Delete item from shopping cart by item's id")
-    public void deleteItem(@PathVariable Long cartItemId) {
-        shoppingCartService.deleteItem(cartItemId);
+    public void deleteItem(Authentication auth, @PathVariable Long cartItemId) {
+        User user = (User) auth.getPrincipal();
+        shoppingCartService.deleteItem(user.getId(), cartItemId);
     }
 }
