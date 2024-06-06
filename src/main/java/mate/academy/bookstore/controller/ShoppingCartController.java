@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
-    @GetMapping("/cart")
+    @GetMapping("/api/cart")
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get shopping cart with items",
             description = "Returns shopping cart of authenticated user with all items in it")
