@@ -1,8 +1,8 @@
 package mate.academy.bookstore.service;
 
 import java.util.List;
-import mate.academy.bookstore.dto.CategoryRequestDto;
-import mate.academy.bookstore.dto.CategoryResponseDto;
+import mate.academy.bookstore.dto.request.category.CategoryRequestDto;
+import mate.academy.bookstore.dto.response.category.CategoryResponseDto;
 import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {

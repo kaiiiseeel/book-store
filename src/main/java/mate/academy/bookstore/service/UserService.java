@@ -1,7 +1,7 @@
 package mate.academy.bookstore.service;
 
-import mate.academy.bookstore.dto.UserRegistrationRequestDto;
-import mate.academy.bookstore.dto.UserResponseDto;
+import mate.academy.bookstore.dto.request.user.UserRegistrationRequestDto;
+import mate.academy.bookstore.dto.response.user.UserResponseDto;
 
 public interface UserService {
 
