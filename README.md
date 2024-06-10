@@ -24,9 +24,60 @@ technologies like Java, Spring Boot, and MySQL.
 - **Spring Web**: Simplifies the development of web applications by providing built-in support for common web functionalities.
 - **Maven**: A build automation tool used for project management and dependency management.
 - **Swagger**: Interactive API documentation and testing
-- **JUnit & Mockito**: For testing
-- **GitHub Actions**: CI (Continues integration) tool
+- **Testcontainers, JUnit & Mockito**: For testing
+- **GitHub Actions**: CI (Continuous integration) tool
 - **Checkstyle plugin**: Helps to keep code style clean and consistent
+
+## 💡 How to install
+
+1. **Clone repository to your machine**
+```shell
+git clone https://github.com/kaiiiseeel/book-store.git
+cd book-store
+```
+2. **Open the application.properties file located in `src/main/resources`, configure it**
+```properties
+spring.datasource.url=jdbc:mysql://localhost/your_database_name?serverTimezone=UTC
+spring.datasource.username=your_db_user_name
+spring.datasource.password=your_db_password
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=true
+```
+
+3. **Add the `.env` file and configure it**
+```properties
+MYSQLDB_USER=your_db_user_name
+MYSQLDB_ROOT_PASSWORD=your_db_password
+MYSQLDB_LOCAL_PORT=3307
+MYSQLDB_DOCKER_PORT=3306
+JWT_SECRET=useSomeLongAndReallySecretStringForThis
+JWT_EXPIRATION=any number required in your project (ex. 1440000)
+
+SPRING_LOCAL_PORT=8088
+SPRING_DOCKER_PORT=8080
+DEBUG_PORT=5005
+```
+
+4. **Add all needed dependencies and build project using Maven**
+```shell
+mvn clean install
+```
+
+5. **Build and run your docker containers via:**
+```shell
+docker-compose up
+```
+
+## ❗ How to use
+
+1. Open documentation at http://localhost:8088/swagger-ui.html
+2. Use tools like Postman or cURL to interact with API
+
+## 🏣 Postman collection
+
+To facilitate testing and exploration of our Online Bookstore API, we have provided a Postman collection. This collection is a comprehensive set of pre-configured API requests that demonstrate the functionality of the API.
+
+[![Open in postman](https://run.pstmn.io/button.svg)](https://www.postman.com/flight-cosmonaut-8680004/workspace/kaiiiseeel/collection/34443387-258e23b2-2831-4b7f-a5e7-7ac546ccdb80?action=share&creator=34443387)
 
 ## 🚀 Project functionality
 
@@ -37,10 +88,57 @@ technologies like Java, Spring Boot, and MySQL.
 
 - **Register a new user**
     - Request: `POST /api/auth/registration`
+```json
+  {
+    "email": "usermail@gmail.com",
+    "password": "awesomePassword123",
+    "repeatedPassword": "awesomePassword123",
+    "firstName": "Bob",
+    "lastName": "Alison"
+  }
+```
 - **Login user**
-    - Request: `POST /api/auth/login`
+  - Request: `POST /api/auth/login`
+```json
+{
+    "email": "usermail@gmail.com",
+    "password": "awesomePassword123"
+}
+```
+
+In response to login request we will get JWT: 
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTcxODA0NDA0MiwiZXhwIjoxNzE4MDU4NDQyfQ.xh2soBCL2oDE21NdqEeNj9hyM9Z7pcGB2dH22Z8w1Fo"
+}
+```
+
+We will use it in our future request to secure endpoints where authentication required
+
+To use it in Postman, go to the auth section,
+select the bearer token type and paste the resulting token into the appropriate field
+![token-usage.png](token-usage.png)
 </details>
 
+#### **Examples:** 
+
+To test the application you can use already created users
+
+- **Admin**:
+  - ```json
+    {
+    "email": "john.doe@example.com",
+    "password": "pass1234"
+    }
+    ```
+- **User**: 
+  - ```json
+    {
+    "email": "bob.jackson@example.com",
+    "password": "pass0000"
+    }
+    ```
+ 
 
 
 ### 📖 Book
@@ -114,57 +212,6 @@ technologies like Java, Spring Boot, and MySQL.
         - Request: `PATCH /api/orders/{orderId}`
 </details>
 
-
-## 💡 How to install
-
-1. **Clone repository to your machine**
-```shell
-git clone https://github.com/kaiiiseeel/book-store.git
-cd book-store
-```
-2. **Open the application.properties file located in `src/main/resources`, configure it**
-```properties
-spring.datasource.url=jdbc:mysql://localhost/your_database_name?serverTimezone=UTC
-spring.datasource.username=your_db_user_name
-spring.datasource.password=your_db_password
-spring.jpa.hibernate.ddl-auto=validate
-spring.jpa.show-sql=true
-```
-
-3. **Add the `.env` file and configure it**
-```properties
-MYSQLDB_USER=your_db_user_name
-MYSQLDB_ROOT_PASSWORD=your_db_password
-MYSQLDB_LOCAL_PORT=3307
-MYSQLDB_DOCKER_PORT=3306
-JWT_SECRET=useSomeLongAndReallySecretStringForThis
-JWT_EXPIRATION=any number required in your project (ex. 1440000)
-
-SPRING_LOCAL_PORT=8088
-SPRING_DOCKER_PORT=8080
-DEBUG_PORT=5005
-```
-
-4. **Add all needed dependencies and build project using Maven**
-```shell
-mvn clean install
-```
-
-5. **Build and run your docker containers via:**
-```shell
-docker-compose up
-```
-
-## ❗ How to use
-
-1. Open documentation at `http://localhost:8088/swagger-ui.html`
-2. Use tools like Postman or cURL to interact with API
-
-## 🏣 Postman collection
-
-To facilitate testing and exploration of our Online Bookstore API, we have provided a Postman collection. This collection is a comprehensive set of pre-configured API requests that demonstrate the functionality of the API. 
-
-[![Open in postman](https://run.pstmn.io/button.svg)](https://www.postman.com/flight-cosmonaut-8680004/workspace/kaiiiseeel/collection/34443387-258e23b2-2831-4b7f-a5e7-7ac546ccdb80?action=share&creator=34443387)
 
 ## 🔥 Challenges Faced
 
