@@ -37,9 +37,9 @@ cd book-store
 ```
 2. **Open the application.properties file located in `src/main/resources`, configure it**
 ```properties
-spring.datasource.url=jdbc:mysql://localhost/your_database_name?serverTimezone=UTC
-spring.datasource.username=your_db_user_name
-spring.datasource.password=your_db_password
+spring.datasource.url=jdbc:mysql://localhost/${MYSQLDB_DATABASE}?serverTimezone=UTC
+spring.datasource.username=${MYSQLDB_USER}
+spring.datasource.password=${MYSQLDB_ROOT_PASSWORD}
 spring.jpa.hibernate.ddl-auto=validate
 spring.jpa.show-sql=true
 ```
@@ -48,6 +48,7 @@ spring.jpa.show-sql=true
 ```properties
 MYSQLDB_USER=your_db_user_name
 MYSQLDB_ROOT_PASSWORD=your_db_password
+MYSQLDB_DATABASE=name_of_your_db
 MYSQLDB_LOCAL_PORT=3307
 MYSQLDB_DOCKER_PORT=3306
 JWT_SECRET=useSomeLongAndReallySecretStringForThis
